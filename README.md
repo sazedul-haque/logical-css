@@ -263,10 +263,6 @@ Scans all stylesheets (`.css`, `.scss`, `.less`) within a selected folder and re
 | `float` | `right` | `inline-end` |
 | `clear` | `left` | `inline-start` |
 | `clear` | `right` | `inline-end` |
-| `background-position` | `left` | `inline-start` |
-| `background-position` | `right` | `inline-end` |
-| `transform-origin` | `left` | `inline-start` |
-| `transform-origin` | `right` | `inline-end` |
 | `caption-side` | `left` / `right` | `inline-start` / `inline-end` |
 | `resize` | `horizontal` / `vertical` | `inline` / `block` |
 

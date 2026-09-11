@@ -101,14 +101,12 @@ describe('CssAnalyzer', () => {
       expect(issues[0].range.end.character).toBe(18);
     });
 
-    it('should not produce duplicate issues for background-position', () => {
-      const css = '.bg {\n  background-position: left center;\n}';
+    it('should not flag background-position (not supported by CSS logical properties)', () => {
+      const css = '.bg {\n  background-position: right 8px center;\n}';
       const doc = createMockDocument(css);
       const issues = analyzer.analyze(doc);
 
-      expect(issues).toHaveLength(1);
-      expect(issues[0].physical).toBe('left');
-      expect(issues[0].logical).toBe('inline-start');
+      expect(issues).toHaveLength(0);
     });
 
     it('should respect block ignore comments', () => {

@@ -83,12 +83,21 @@ describe('Rules', () => {
       expect(isDirectionSensitiveValue('clear', 'right')).toBe(true);
     });
 
-    it('should identify background-position: left as direction-sensitive', () => {
-      expect(isDirectionSensitiveValue('background-position', 'left')).toBe(true);
+    it('should identify caption-side: left as direction-sensitive', () => {
+      expect(isDirectionSensitiveValue('caption-side', 'left')).toBe(true);
     });
 
-    it('should identify background-position: left center as direction-sensitive', () => {
-      expect(isDirectionSensitiveValue('background-position', 'left center')).toBe(true);
+    it('should identify resize: horizontal as direction-sensitive', () => {
+      expect(isDirectionSensitiveValue('resize', 'horizontal')).toBe(true);
+    });
+
+    it('should not identify background-position as direction-sensitive (not supported by CSS)', () => {
+      expect(isDirectionSensitiveValue('background-position', 'left')).toBe(false);
+      expect(isDirectionSensitiveValue('background-position', 'right 8px center')).toBe(false);
+    });
+
+    it('should not identify transform-origin as direction-sensitive (not supported by CSS)', () => {
+      expect(isDirectionSensitiveValue('transform-origin', 'left top')).toBe(false);
     });
 
     it('should not identify text-align: center as direction-sensitive', () => {
@@ -164,8 +173,8 @@ describe('Rules', () => {
       expect(isShorthandProperty('border-radius')).toBe(true);
     });
 
-    it('should identify background-position as shorthand', () => {
-      expect(isShorthandProperty('background-position')).toBe(true);
+    it('should not identify background-position as shorthand', () => {
+      expect(isShorthandProperty('background-position')).toBe(false);
     });
 
     it('should not identify margin-left as shorthand', () => {

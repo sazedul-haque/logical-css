@@ -437,38 +437,6 @@ export const DIRECTION_SENSITIVE_VALUES: Record<string, DirectionSensitiveValue[
       reason: 'Use clear: inline-end for RTL support',
     },
   ],
-  'background-position': [
-    {
-      property: 'background-position',
-      physical: 'left',
-      logical: 'inline-start',
-      category: 'inline',
-      reason: 'Use background-position: inline-start for RTL support',
-    },
-    {
-      property: 'background-position',
-      physical: 'right',
-      logical: 'inline-end',
-      category: 'inline',
-      reason: 'Use background-position: inline-end for RTL support',
-    },
-  ],
-  'transform-origin': [
-    {
-      property: 'transform-origin',
-      physical: 'left',
-      logical: 'inline-start',
-      category: 'inline',
-      reason: 'Use transform-origin: inline-start for RTL support',
-    },
-    {
-      property: 'transform-origin',
-      physical: 'right',
-      logical: 'inline-end',
-      category: 'inline',
-      reason: 'Use transform-origin: inline-end for RTL support',
-    },
-  ],
   'caption-side': [
     {
       property: 'caption-side',
@@ -524,7 +492,6 @@ export const SHORTHAND_PROPERTIES = new Set([
   'margin',
   'padding',
   'border-radius',
-  'background-position',
   'border',
   'border-width',
   'border-style',
