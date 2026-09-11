@@ -350,9 +350,18 @@ async function scanWorkspace(): Promise<void> {
           outputChannel.appendLine(
             `Workspace scan complete. Analyzed ${scanned} files. Total issues: ${totalIssueCount}`
           );
-          window.showInformationMessage(
-            `Logical CSS: Scan complete. Analyzed ${scanned} files, found ${totalIssueCount} issues.`
-          );
+          const message = `Logical CSS: Scan complete. Analyzed ${scanned} files, found ${totalIssueCount} issues.`;
+          if (totalIssueCount > 0) {
+            window
+              .showInformationMessage(message, 'View Problems')
+              .then((action: string | undefined) => {
+                if (action === 'View Problems') {
+                  vscode.commands.executeCommand('workbench.action.problems.focus');
+                }
+              });
+          } else {
+            window.showInformationMessage(message);
+          }
         }
       } finally {
         isScanning = false;
@@ -472,9 +481,18 @@ async function scanFolder(targetUri?: Uri): Promise<void> {
           outputChannel.appendLine(
             `Folder scan complete. Analyzed ${scanned} files in '${folderName}'. Found ${folderIssues} issues.`
           );
-          window.showInformationMessage(
-            `Logical CSS: Scan complete for '${folderName}'. Analyzed ${scanned} files, found ${folderIssues} issues.`
-          );
+          const message = `Logical CSS: Scan complete for '${folderName}'. Analyzed ${scanned} files, found ${folderIssues} issues.`;
+          if (folderIssues > 0) {
+            window
+              .showInformationMessage(message, 'View Problems')
+              .then((action: string | undefined) => {
+                if (action === 'View Problems') {
+                  vscode.commands.executeCommand('workbench.action.problems.focus');
+                }
+              });
+          } else {
+            window.showInformationMessage(message);
+          }
         }
       } finally {
         isScanning = false;
