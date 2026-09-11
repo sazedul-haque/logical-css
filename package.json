@@ -4,7 +4,7 @@
   "description": "Help developers write RTL-friendly and CSS Logical Property–aware styles by analyzing CSS/SCSS and providing diagnostics, quick fixes, and optional auto-fixes.",
   "version": "1.0.0",
   "icon": "icon.png",
-  "publisher": "logical-css",
+  "publisher": "sazedul-haque",
   "author": "Sazedul Haque",
   "license": "MIT",
   "repository": {

@@ -4,9 +4,9 @@
 
 <h1 align="center">Logical CSS</h1>
 
-[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/logical-css.logical-css?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=logical-css.logical-css)
-[![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/logical-css.logical-css?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=logical-css.logical-css)
-[![Visual Studio Marketplace Rating](https://img.shields.io/visual-studio-marketplace/stars/logical-css.logical-css?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=logical-css.logical-css)
+[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/sazedul-haque.logical-css?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=sazedul-haque.logical-css)
+[![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/sazedul-haque.logical-css?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=sazedul-haque.logical-css)
+[![Visual Studio Marketplace Rating](https://img.shields.io/visual-studio-marketplace/stars/sazedul-haque.logical-css?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=sazedul-haque.logical-css)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
 A production-quality Visual Studio Code extension that helps developers write RTL-friendly and CSS Logical Property–aware styles by analyzing CSS/SCSS and providing diagnostics, quick fixes, and optional auto-fixes.

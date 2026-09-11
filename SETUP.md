@@ -147,15 +147,15 @@ Update the following fields in `package.json`:
 
 ```json
 {
-  "publisher": "your-publisher-name",
+  "publisher": "sazedul-haque",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/logical-css"
+    "url": "https://github.com/sazedul-haque/logical-css"
   },
   "bugs": {
-    "url": "https://github.com/your-username/logical-css/issues"
+    "url": "https://github.com/sazedul-haque/logical-css/issues"
   },
-  "homepage": "https://github.com/your-username/logical-css#readme"
+  "homepage": "https://github.com/sazedul-haque/logical-css#readme"
 }
 ```
 
@@ -169,10 +169,10 @@ Update the following fields in `package.json`:
 
 ```bash
 # Install vsce globally if not already installed
-npm install -g vsce
+npm install -g @vscode/vsce
 
 # Login with your token
-vsce login your-publisher-name
+vsce login sazedul-haque
 
 # Publish
 vsce publish
