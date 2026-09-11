@@ -1,4 +1,8 @@
-# Logical CSS
+<p align="center">
+  <img src="icon.png" width="128" height="128" alt="Logical CSS Logo" />
+</p>
+
+<h1 align="center">Logical CSS</h1>
 
 [![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/logical-css.logical-css?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=logical-css.logical-css)
 [![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/logical-css.logical-css?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=logical-css.logical-css)
