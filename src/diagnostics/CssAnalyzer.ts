@@ -50,15 +50,20 @@ export class CssAnalyzer {
       if (isPhysicalProperty(decl.property)) {
         const rule = getLogicalProperty(decl.property);
         if (rule) {
-          const range = this.createPropertyRange(document, decl);
-          issues.push({
-            type: 'physical-property',
-            physical: rule.physical,
-            logical: rule.logical,
-            reason: rule.reason,
-            range,
-            isIgnored: false,
-          });
+          const skipBlock = rule.category === 'block' && !this.config.checkBlockProperties;
+          const skipSize = rule.category === 'size' && !this.config.checkSizeProperties;
+
+          if (!skipBlock && !skipSize) {
+            const range = this.createPropertyRange(document, decl);
+            issues.push({
+              type: 'physical-property',
+              physical: rule.physical,
+              logical: rule.logical,
+              reason: rule.reason,
+              range,
+              isIgnored: false,
+            });
+          }
         }
       }
 
@@ -71,15 +76,19 @@ export class CssAnalyzer {
 
         const valueRule = getLogicalValue(decl.property, decl.value);
         if (valueRule) {
-          const range = this.createValueRange(document, decl, valueRule.physical);
-          issues.push({
-            type: 'direction-value',
-            physical: valueRule.physical,
-            logical: valueRule.logical,
-            reason: valueRule.reason,
-            range,
-            isIgnored: false,
-          });
+          const skipBlock = valueRule.category === 'block' && !this.config.checkBlockProperties;
+
+          if (!skipBlock) {
+            const range = this.createValueRange(document, decl, valueRule.physical);
+            issues.push({
+              type: 'direction-value',
+              physical: valueRule.physical,
+              logical: valueRule.logical,
+              reason: valueRule.reason,
+              range,
+              isIgnored: false,
+            });
+          }
         }
       }
 

@@ -168,6 +168,24 @@ Example:
 - **Default**: `false`
 - **Description**: Auto-fix issues on save
 
+### logicalCss.checkBlockProperties
+
+- **Type**: `boolean`
+- **Default**: `false`
+- **Description**: Check physical block-axis properties (`top`, `bottom`, `margin-top`, `padding-bottom`, `border-top`, etc.) and suggest logical equivalents (`inset-block-start`, `margin-block`, etc.)
+
+### logicalCss.checkSizeProperties
+
+- **Type**: `boolean`
+- **Default**: `false`
+- **Description**: Check sizing properties (`width`, `height`, `min-width`, etc.) and suggest logical sizing (`inline-size`, `block-size`, etc.)
+
+### logicalCss.checkShorthands
+
+- **Type**: `boolean`
+- **Default**: `true`
+- **Description**: Detect physical shorthand declarations (e.g. 4-value `padding: 10px 20px 10px 30px`) that have asymmetric horizontal values and require logical properties for RTL support
+
 ## Commands
 
 ### Logical CSS: Scan Workspace
@@ -180,7 +198,7 @@ Scans the currently active file and reports issues.
 
 ## Supported Properties
 
-### Margin & Padding
+### Inline / Horizontal Properties (Default)
 
 | Physical | Logical |
 |----------|---------|
@@ -188,35 +206,48 @@ Scans the currently active file and reports issues.
 | `margin-right` | `margin-inline-end` |
 | `padding-left` | `padding-inline-start` |
 | `padding-right` | `padding-inline-end` |
-
-### Positioning
-
-| Physical | Logical |
-|----------|---------|
 | `left` | `inset-inline-start` |
 | `right` | `inset-inline-end` |
-
-### Border
-
-| Physical | Logical |
-|----------|---------|
 | `border-left` | `border-inline-start` |
 | `border-right` | `border-inline-end` |
-| `border-left-width` | `border-inline-start-width` |
-| `border-right-width` | `border-inline-end-width` |
-| `border-left-style` | `border-inline-start-style` |
-| `border-right-style` | `border-inline-end-style` |
-| `border-left-color` | `border-inline-start-color` |
-| `border-right-color` | `border-inline-end-color` |
-
-### Border Radius
-
-| Physical | Logical |
-|----------|---------|
+| `border-left-width` / `style` / `color` | `border-inline-start-*` |
+| `border-right-width` / `style` / `color` | `border-inline-end-*` |
 | `border-top-left-radius` | `border-start-start-radius` |
 | `border-top-right-radius` | `border-start-end-radius` |
 | `border-bottom-left-radius` | `border-end-start-radius` |
 | `border-bottom-right-radius` | `border-end-end-radius` |
+| `scroll-margin-left` / `right` | `scroll-margin-inline-start` / `end` |
+| `scroll-padding-left` / `right` | `scroll-padding-inline-start` / `end` |
+| `overflow-x` | `overflow-inline` |
+
+### Block / Vertical Properties (Opt-in via `logicalCss.checkBlockProperties`)
+
+| Physical | Logical |
+|----------|---------|
+| `margin-top` | `margin-block-start` |
+| `margin-bottom` | `margin-block-end` |
+| `padding-top` | `padding-block-start` |
+| `padding-bottom` | `padding-block-end` |
+| `top` | `inset-block-start` |
+| `bottom` | `inset-block-end` |
+| `border-top` | `border-block-start` |
+| `border-bottom` | `border-block-end` |
+| `border-top-width` / `style` / `color` | `border-block-start-*` |
+| `border-bottom-width` / `style` / `color` | `border-block-end-*` |
+| `scroll-margin-top` / `bottom` | `scroll-margin-block-start` / `end` |
+| `scroll-padding-top` / `bottom` | `scroll-padding-block-start` / `end` |
+| `overflow-y` | `overflow-block` |
+
+### Sizing Properties (Opt-in via `logicalCss.checkSizeProperties`)
+
+| Physical | Logical |
+|----------|---------|
+| `width` | `inline-size` |
+| `height` | `block-size` |
+| `min-width` | `min-inline-size` |
+| `max-width` | `max-inline-size` |
+| `min-height` | `min-block-size` |
+| `max-height` | `max-block-size` |
 
 ### Direction-Sensitive Values
 
@@ -232,6 +263,8 @@ Scans the currently active file and reports issues.
 | `background-position` | `right` | `inline-end` |
 | `transform-origin` | `left` | `inline-start` |
 | `transform-origin` | `right` | `inline-end` |
+| `caption-side` | `left` / `right` | `inline-start` / `inline-end` |
+| `resize` | `horizontal` / `vertical` | `inline` / `block` |
 
 ## Why Logical Properties?
 

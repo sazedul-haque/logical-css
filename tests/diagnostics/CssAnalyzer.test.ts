@@ -19,6 +19,8 @@ describe('CssAnalyzer', () => {
     enableStatusBar: true,
     autoFixOnSave: false,
     checkShorthands: true,
+    checkBlockProperties: false,
+    checkSizeProperties: false,
   };
 
   let analyzer: CssAnalyzer;
@@ -140,6 +142,46 @@ describe('CssAnalyzer', () => {
       const issues = analyzer.analyze(doc);
 
       expect(issues).toHaveLength(0);
+    });
+
+    it('should ignore block properties when checkBlockProperties is false by default', () => {
+      const css = '.box { margin-top: 10px; top: 0; }';
+      const doc = createMockDocument(css);
+      const issues = analyzer.analyze(doc);
+
+      expect(issues).toHaveLength(0);
+    });
+
+    it('should detect block properties when checkBlockProperties is true', () => {
+      analyzer.updateConfig({ ...mockConfig, checkBlockProperties: true });
+      const css = '.box { margin-top: 10px; }';
+      const doc = createMockDocument(css);
+      const issues = analyzer.analyze(doc);
+
+      expect(issues).toHaveLength(1);
+      expect(issues[0].physical).toBe('margin-top');
+      expect(issues[0].logical).toBe('margin-block-start');
+    });
+
+    it('should detect size properties when checkSizeProperties is true', () => {
+      analyzer.updateConfig({ ...mockConfig, checkSizeProperties: true });
+      const css = '.box { width: 100px; }';
+      const doc = createMockDocument(css);
+      const issues = analyzer.analyze(doc);
+
+      expect(issues).toHaveLength(1);
+      expect(issues[0].physical).toBe('width');
+      expect(issues[0].logical).toBe('inline-size');
+    });
+
+    it('should detect scroll-margin-left as an inline rule', () => {
+      const css = '.box { scroll-margin-left: 10px; }';
+      const doc = createMockDocument(css);
+      const issues = analyzer.analyze(doc);
+
+      expect(issues).toHaveLength(1);
+      expect(issues[0].physical).toBe('scroll-margin-left');
+      expect(issues[0].logical).toBe('scroll-margin-inline-start');
     });
   });
 });

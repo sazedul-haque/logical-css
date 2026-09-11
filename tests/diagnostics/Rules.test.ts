@@ -41,6 +41,22 @@ describe('Rules', () => {
       expect(isPhysicalProperty('border-top-left-radius')).toBe(true);
     });
 
+    it('should identify scroll-margin-left as physical', () => {
+      expect(isPhysicalProperty('scroll-margin-left')).toBe(true);
+    });
+
+    it('should identify top as physical', () => {
+      expect(isPhysicalProperty('top')).toBe(true);
+    });
+
+    it('should identify margin-top as physical', () => {
+      expect(isPhysicalProperty('margin-top')).toBe(true);
+    });
+
+    it('should identify width as physical', () => {
+      expect(isPhysicalProperty('width')).toBe(true);
+    });
+
     it('should not identify margin-inline-start as physical', () => {
       expect(isPhysicalProperty('margin-inline-start')).toBe(false);
     });

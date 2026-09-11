@@ -105,6 +105,16 @@
           "type": "boolean",
           "default": true,
           "description": "Check 4-value shorthand properties (e.g. padding, margin) for asymmetrical horizontal values that break RTL"
+        },
+        "logicalCss.checkBlockProperties": {
+          "type": "boolean",
+          "default": false,
+          "description": "Check vertical/block properties (e.g. top, bottom, margin-top, padding-bottom, overflow-x) for conversion to logical block-start/block-end properties"
+        },
+        "logicalCss.checkSizeProperties": {
+          "type": "boolean",
+          "default": false,
+          "description": "Check dimension size properties (e.g. width, height, min-width) for conversion to inline-size/block-size"
         }
       }
     },

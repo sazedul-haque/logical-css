@@ -14,6 +14,8 @@ export interface LogicalPropertyRule {
   logical: string;
   /** The type of rule (property or value) */
   type: 'property' | 'value';
+  /** Category of logical property */
+  category?: 'inline' | 'block' | 'size';
   /** Description of why this should be converted */
   reason: string;
 }
@@ -28,6 +30,8 @@ export interface DirectionSensitiveValue {
   physical: string;
   /** The logical value to suggest */
   logical: string;
+  /** Category of direction value */
+  category?: 'inline' | 'block';
   /** Description of why this should be converted */
   reason: string;
 }
@@ -84,6 +88,10 @@ export interface LogicalCssConfig {
   autoFixOnSave: boolean;
   /** Check shorthand properties for asymmetrical horizontal values */
   checkShorthands: boolean;
+  /** Check vertical/block physical properties (top, bottom, margin-top, etc.) */
+  checkBlockProperties: boolean;
+  /** Check dimension sizing properties (width, height, min-width, etc.) */
+  checkSizeProperties: boolean;
 }
 
 /**

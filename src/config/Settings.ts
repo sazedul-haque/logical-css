@@ -29,6 +29,8 @@ export class Settings {
       enableStatusBar: config.get('enableStatusBar', true) as boolean,
       autoFixOnSave: config.get('autoFixOnSave', false) as boolean,
       checkShorthands: config.get('checkShorthands', true) as boolean,
+      checkBlockProperties: config.get('checkBlockProperties', false) as boolean,
+      checkSizeProperties: config.get('checkSizeProperties', false) as boolean,
     };
   }
 
