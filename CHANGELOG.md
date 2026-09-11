@@ -5,22 +5,24 @@ All notable changes to the "Logical CSS" extension will be documented in this fi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2024-01-XX
+## [1.0.0] - 2026-09-11
 
 ### Added
 
-- Initial release of Logical CSS extension
-- Real-time diagnostics for physical CSS properties
-- Quick fix code actions for converting to logical properties
-- Hover information showing logical property suggestions
-- Status bar displaying current issue count
-- Support for ignore comments (`/* rtl-ignore */` and `/* rtl-ignore-next-line */`)
-- Comprehensive configuration options
+- Initial production release of Logical CSS extension
+- Real-time diagnostics for physical CSS properties with precise keyword squiggles
+- Quick Fix code actions for converting physical properties and values to logical properties without syntax corruption
+- Batch "Fix all Logical CSS issues in file" code action
+- Interactive "View Problems" action on scan completion notifications
+- Hover information showing logical property suggestions with context
+- Status bar item displaying active issues and direct navigation to Problems panel
+- Multi-line and single-line ignore comments (`/* rtl-ignore-start */ ... /* rtl-ignore-end */`, `/* rtl-disable */`, etc.)
+- Comprehensive configuration options (block properties, sizing properties, shorthands, custom ignores)
+- Auto-fix on save (`logicalCss.autoFixOnSave`)
 - Support for CSS, SCSS, Less, Vue, Svelte, HTML, and JavaScript/TypeScript files
-- Workspace scan command
-- Current file scan command
-- Output channel for detailed reports
-- Unit tests for core functionality
+- Commands: Scan Workspace, Scan Folder (with File Explorer context menu), and Scan Current File
+- Debounced editor analysis (250ms) and single-pass parsing for smooth typing performance
+- Unit tests with 100% pass rate across core suites
 
 ### Features
 
