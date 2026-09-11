@@ -28,6 +28,7 @@ export class Settings {
       enableHover: config.get('enableHover', true) as boolean,
       enableStatusBar: config.get('enableStatusBar', true) as boolean,
       autoFixOnSave: config.get('autoFixOnSave', false) as boolean,
+      checkShorthands: config.get('checkShorthands', true) as boolean,
     };
   }
 

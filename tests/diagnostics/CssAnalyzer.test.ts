@@ -18,6 +18,7 @@ describe('CssAnalyzer', () => {
     enableHover: true,
     enableStatusBar: true,
     autoFixOnSave: false,
+    checkShorthands: true,
   };
 
   let analyzer: CssAnalyzer;
@@ -120,6 +121,25 @@ describe('CssAnalyzer', () => {
 
       expect(issues).toHaveLength(1);
       expect(issues[0].range.start.line).toBe(3);
+    });
+
+    it('should detect 4-value shorthands with differing horizontal values', () => {
+      const css = '.box { padding: 10px 20px 10px 40px; }';
+      const doc = createMockDocument(css);
+      const issues = analyzer.analyze(doc);
+
+      expect(issues).toHaveLength(1);
+      expect(issues[0].physical).toBe('10px 20px 10px 40px');
+      expect(issues[0].reason).toContain('differing horizontal values');
+    });
+
+    it('should ignore shorthands when checkShorthands is false', () => {
+      analyzer.updateConfig({ ...mockConfig, checkShorthands: false });
+      const css = '.box { padding: 10px 20px 10px 40px; }';
+      const doc = createMockDocument(css);
+      const issues = analyzer.analyze(doc);
+
+      expect(issues).toHaveLength(0);
     });
   });
 });

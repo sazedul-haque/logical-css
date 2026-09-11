@@ -100,6 +100,11 @@
           "type": "boolean",
           "default": false,
           "description": "Auto-fix issues on save"
+        },
+        "logicalCss.checkShorthands": {
+          "type": "boolean",
+          "default": true,
+          "description": "Check 4-value shorthand properties (e.g. padding, margin) for asymmetrical horizontal values that break RTL"
         }
       }
     },

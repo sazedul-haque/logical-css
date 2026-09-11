@@ -82,6 +82,8 @@ export interface LogicalCssConfig {
   enableStatusBar: boolean;
   /** Auto-fix on save */
   autoFixOnSave: boolean;
+  /** Check shorthand properties for asymmetrical horizontal values */
+  checkShorthands: boolean;
 }
 
 /**

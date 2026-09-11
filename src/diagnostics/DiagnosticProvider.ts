@@ -90,9 +90,15 @@ export class DiagnosticProvider {
     };
 
     return issues.map((issue) => {
+      const cleanReason = issue.reason.replace(/\.+$/, '');
+      const message =
+        issue.logical !== issue.physical
+          ? `${cleanReason}. Consider using '${issue.logical}' instead of '${issue.physical}'.`
+          : `${cleanReason}.`;
+
       const diagnostic = new Diagnostic(
         issue.range,
-        `${issue.reason}. Consider using '${issue.logical}' instead of '${issue.physical}'.`,
+        message,
         severityMap[this.config.severity]
       );
 

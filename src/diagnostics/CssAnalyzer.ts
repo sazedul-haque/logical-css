@@ -85,6 +85,7 @@ export class CssAnalyzer {
 
       // Handle 4-value shorthand properties with asymmetrical horizontal values
       if (
+        this.config.checkShorthands &&
         isShorthandProperty(decl.property) &&
         ['margin', 'padding', 'border-color', 'border-style', 'border-width'].includes(
           decl.property
