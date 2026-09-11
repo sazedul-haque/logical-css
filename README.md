@@ -196,6 +196,10 @@ Scans all CSS files in the current workspace and reports the total number of iss
 
 Scans the currently active file and reports issues.
 
+### Logical CSS: Scan Folder
+
+Scans all stylesheets (`.css`, `.scss`, `.less`) within a selected folder and reports issues in the Problems panel. Can be executed by right-clicking any directory in the VS Code File Explorer and selecting **Logical CSS: Scan Folder**, or from the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`).
+
 ## Supported Properties
 
 ### Inline / Horizontal Properties (Default)

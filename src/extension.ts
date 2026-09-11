@@ -14,6 +14,9 @@ import type {
   ConfigurationChangeEvent,
   Progress,
   CancellationToken,
+  Uri,
+  WorkspaceFolder,
+  QuickPickItem,
 } from 'vscode';
 import { DiagnosticProvider } from './diagnostics/DiagnosticProvider';
 import { QuickFixProvider } from './codeActions/QuickFixProvider';
@@ -112,6 +115,12 @@ export function activate(context: ExtensionContext): void {
       if (editor) {
         await analyzeDocument(editor.document);
       }
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('logicalCss.scanFolder', async (folderUri?: Uri) => {
+      await scanFolder(folderUri);
     })
   );
 
@@ -343,6 +352,128 @@ async function scanWorkspace(): Promise<void> {
           );
           window.showInformationMessage(
             `Logical CSS: Scan complete. Analyzed ${scanned} files, found ${totalIssueCount} issues.`
+          );
+        }
+      } finally {
+        isScanning = false;
+      }
+    }
+  );
+}
+
+async function scanFolder(targetUri?: Uri): Promise<void> {
+  const vscode = require('vscode');
+  const window = vscode.window;
+  const workspace = vscode.workspace;
+  const path = require('path');
+
+  let folderUri = targetUri;
+
+  // If invoked from Command Palette without an argument, prompt the user
+  if (!folderUri) {
+    const workspaceFolders = workspace.workspaceFolders;
+    if (workspaceFolders && workspaceFolders.length === 1) {
+      folderUri = workspaceFolders[0].uri;
+    } else if (workspaceFolders && workspaceFolders.length > 1) {
+      const items: Array<QuickPickItem & { uri: Uri }> = workspaceFolders.map(
+        (wf: WorkspaceFolder) => ({
+          label: wf.name,
+          description: wf.uri.fsPath,
+          uri: wf.uri,
+        })
+      );
+      const selected = await window.showQuickPick(items, {
+        placeHolder: 'Select folder to scan with Logical CSS',
+      });
+      if (!selected) {
+        return;
+      }
+      folderUri = selected.uri;
+    } else {
+      const selected = await window.showOpenDialog({
+        canSelectFiles: false,
+        canSelectFolders: true,
+        canSelectMany: false,
+        openLabel: 'Scan Folder',
+      });
+      if (!selected || selected.length === 0) {
+        return;
+      }
+      folderUri = selected[0];
+    }
+  }
+
+  if (!folderUri) {
+    return;
+  }
+
+  if (isScanning) {
+    window.showWarningMessage(
+      'Logical CSS is already scanning files. Please wait for the current scan to finish.'
+    );
+    return;
+  }
+
+  const folderName = path.basename(folderUri.fsPath) || folderUri.fsPath;
+
+  await window.withProgress(
+    {
+      location: vscode.ProgressLocation.Notification,
+      title: `Logical CSS: Scanning folder '${folderName}'`,
+      cancellable: true,
+    },
+    async (
+      progress: Progress<{ message?: string; increment?: number }>,
+      token: CancellationToken
+    ) => {
+      isScanning = true;
+      outputChannel.appendLine(`Scanning folder: ${folderUri?.fsPath}...`);
+
+      try {
+        const pattern = new vscode.RelativePattern(folderUri, '**/*.{css,scss,less}');
+        const files = await workspace.findFiles(
+          pattern,
+          '**/{node_modules,dist,out,.git}/**'
+        );
+
+        if (files.length === 0) {
+          window.showInformationMessage(
+            `Logical CSS: No stylesheet files found in folder '${folderName}'.`
+          );
+          return;
+        }
+
+        let scanned = 0;
+        let folderIssues = 0;
+        for (const file of files) {
+          if (token.isCancellationRequested) {
+            outputChannel.appendLine('Folder scan cancelled by user.');
+            break;
+          }
+
+          progress.report({
+            message: `${++scanned}/${files.length} (${path.basename(file.fsPath)})`,
+            increment: (1 / files.length) * 100,
+          });
+
+          try {
+            const document = await workspace.openTextDocument(file);
+            const issues = diagnosticProvider.analyzeDocument(document);
+            folderIssues += issues.length;
+            quickFixProvider.setIssues(document.uri.toString(), issues);
+          } catch (error) {
+            outputChannel.appendLine(`Error scanning ${file.fsPath}: ${error}`);
+          }
+        }
+
+        updateIssueCount();
+
+        if (!token.isCancellationRequested) {
+          outputChannel.appendLine(
+            `Folder scan complete. Analyzed ${scanned} files in '${folderName}'. Found ${folderIssues} issues.`
+          );
+          window.showInformationMessage(
+            `Logical CSS: Scan complete for '${folderName}'. Analyzed ${scanned} files, found ${folderIssues} issues.`
           );
         }
       } finally {

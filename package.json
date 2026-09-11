@@ -126,8 +126,21 @@
       {
         "command": "logicalCss.scanCurrentFile",
         "title": "Logical CSS: Scan Current File"
+      },
+      {
+        "command": "logicalCss.scanFolder",
+        "title": "Logical CSS: Scan Folder"
       }
-    ]
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "logicalCss.scanFolder",
+          "when": "explorerResourceIsFolder",
+          "group": "7_modification"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run compile",

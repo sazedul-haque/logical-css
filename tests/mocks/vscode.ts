@@ -62,6 +62,20 @@ export const DiagnosticSeverity = {
   Hint: 3,
 };
 
+export class RelativePattern {
+  constructor(public base: any, public pattern: string) {}
+}
+
+export class Uri {
+  constructor(public fsPath: string) {}
+  toString() {
+    return `file://${this.fsPath}`;
+  }
+  static file(path: string) {
+    return new Uri(path);
+  }
+}
+
 export default {
   Position,
   Range,
@@ -71,4 +85,6 @@ export default {
   TextEdit,
   Diagnostic,
   DiagnosticSeverity,
+  RelativePattern,
+  Uri,
 };
