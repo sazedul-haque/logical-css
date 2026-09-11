@@ -5,6 +5,12 @@ All notable changes to the "Logical CSS" extension will be documented in this fi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-09-11
+
+### Fixed
+
+- Removed invalid logical property replacements for `background-position` and `transform-origin` (standard CSS does not support `inline-start` or `inline-end` for these properties, which previously produced invalid CSS that browsers discarded).
+
 ## [1.0.0] - 2026-09-11
 
 ### Added

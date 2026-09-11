@@ -34,7 +34,7 @@ A production-quality Visual Studio Code extension that helps developers write RT
 
 ```bash
 # Download the .vsix file from the releases page
-code --install-extension logical-css-1.0.0.vsix
+code --install-extension logical-css-1.0.1.vsix
 ```
 
 ## Usage
